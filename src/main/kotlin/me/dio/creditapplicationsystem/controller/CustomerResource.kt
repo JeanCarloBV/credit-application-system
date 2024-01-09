@@ -5,6 +5,9 @@ import me.dio.creditapplicationsystem.DTO.CustomerUpdateDto
 import me.dio.creditapplicationsystem.DTO.CustomerView
 import me.dio.creditapplicationsystem.entity.Customer
 import me.dio.creditapplicationsystem.service.impl.CustomerService
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -20,25 +23,26 @@ class CustomerResource(
     private val customerService: CustomerService
 ) {
     @PostMapping
-    fun saveCustomer(@RequestBody customerDto: CustomerDto): String{
+    fun saveCustomer(@RequestBody customerDto: CustomerDto): ResponseEntity<String>{
         val savedCustomer = this.customerService.save(customerDto.toEntity())
-        return "Customer ${savedCustomer.email} saved!"
+        return ResponseEntity.status(HttpStatus.CREATED).body("Customer ${savedCustomer.email} saved!")
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Long): CustomerView {
+    fun findById(@PathVariable id: Long): ResponseEntity<CustomerView> {
         val customer: Customer = this.customerService.findById(id)
-        return CustomerView(customer)
+        return ResponseEntity.status(HttpStatus.OK).body(CustomerView(customer))
     }
 
-    @GetMapping("/{id^}")
+    @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: Long) = this.customerService.delete(id)
 
     @PatchMapping
-    fun updateCustomer(@RequestParam(value = "customerId") id: Long, customerUpdateDto: CustomerUpdateDto): CustomerView {
+    fun updateCustomer(@RequestParam(value = "customerId") id: Long,
+                       @RequestBody customerUpdateDto: CustomerUpdateDto): ResponseEntity<CustomerView> {
         val customer: Customer = this.customerService.findById(id)
         val customerToUpdate: Customer = customerUpdateDto.toEntity(customer)
-        val customerupdated: Customer = this.customerService.save(customerToUpdate)
-        return CustomerView(customerupdated)
+        val customerUpdated: Customer = this.customerService.save(customerToUpdate)
+        return ResponseEntity.status(HttpStatus.OK).body(CustomerView(customerUpdated))
     }
 }
