@@ -2,6 +2,7 @@ package me.dio.creditapplicationsystem.DTO
 
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
 import me.dio.creditapplicationsystem.entity.Address
 import me.dio.creditapplicationsystem.entity.Customer
 import org.aspectj.apache.bcel.classfile.Code
@@ -12,7 +13,7 @@ data class CustomerDto(
     @field:NotEmpty(message = "Invalid input") val firstName: String,
     @field:NotEmpty(message = "Invalid input") val lastName: String,
     @field:CPF(message = "Invalid CPF") val cpf: String,
-    @field:NotEmpty(message = "Invalid input") val income: BigDecimal,
+    @field:NotNull(message = "Invalid input") val income: BigDecimal,
     @field:Email(message = "Invalid email") val email: String,
     @field:NotEmpty(message = "Invalid input") val password: String,
     @field:NotEmpty(message = "Invalid input") val zipCode: String,
