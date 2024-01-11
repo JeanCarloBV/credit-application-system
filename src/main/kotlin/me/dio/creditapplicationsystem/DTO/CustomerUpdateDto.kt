@@ -3,8 +3,6 @@ package me.dio.creditapplicationsystem.DTO
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import me.dio.creditapplicationsystem.entity.Customer
-import org.hibernate.validator.constraints.NotEmpty
-import jakarta.validation.constraints.NotNull
 import java.math.BigDecimal
 
 data class CustomerUpdateDto(

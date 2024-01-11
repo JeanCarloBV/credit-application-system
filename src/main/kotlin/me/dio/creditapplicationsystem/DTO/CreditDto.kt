@@ -2,14 +2,11 @@ package me.dio.creditapplicationsystem.DTO
 
 import jakarta.validation.constraints.Future
 import jakarta.validation.constraints.Max
-import jakarta.validation.constraints.Min
-import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import me.dio.creditapplicationsystem.entity.Credit
 import me.dio.creditapplicationsystem.entity.Customer
 import java.math.BigDecimal
 import java.time.LocalDate
-import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Private
 
 class CreditDto(
     @field:NotNull(message = "Invalid input") val creditValue: BigDecimal,
